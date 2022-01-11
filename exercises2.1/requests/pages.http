@@ -139,3 +139,6 @@ Authorization: {{jamesToken}}
   "uri": "/john",
   "publicationStatus": "hidden"
 }
+
+### View all pages when anonymous
+GET {{baseUrl}}/pages
