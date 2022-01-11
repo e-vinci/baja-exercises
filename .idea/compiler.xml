@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="exercise1.1" />
+        <module name="exercises3.1" />
         <module name="exercises2.1" />
       </profile>
     </annotationProcessing>
@@ -14,6 +15,7 @@
       <module name="exercise1.1" target="17" />
       <module name="exercise2.1" target="1.7" />
       <module name="exercises2.1" target="17" />
+      <module name="exercises3.1" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
