@@ -81,13 +81,7 @@ public class PageResource {
             throw new WebApplicationException("Lacks of mandatory id info", Response.Status.BAD_REQUEST);
         User authenticatedUser = (User) request.getProperty("user");
         Page deletedPage = null;
-        try {
-            deletedPage = myPageDataService.deleteOne(id, authenticatedUser);
-        } catch (Exception e) {
-            throw new WebApplicationException("You are not the author", e, Response.Status.FORBIDDEN);
-
-        }
-        // TODO deal later with specific error message if authenticatedUser is not the author of the page
+        deletedPage = myPageDataService.deleteOne(id, authenticatedUser);
         if (deletedPage == null)
             throw new WebApplicationException("Ressource not found", Response.Status.NOT_FOUND);
         return deletedPage;
@@ -106,11 +100,8 @@ public class PageResource {
             throw new WebApplicationException("Lacks of mandatory info", Response.Status.BAD_REQUEST);
         User authenticatedUser = (User) request.getProperty("user");
         Page updatedPage = null;
-        try {
-            updatedPage = myPageDataService.updateOne(page, id, authenticatedUser);
-        } catch (Exception e) {
-            throw new WebApplicationException("You are not the author", Response.Status.FORBIDDEN);
-        }
+        updatedPage = myPageDataService.updateOne(page, id, authenticatedUser);
+
         // TODO deal later with specific error message if authenticatedUser is not the author of the page
         if (updatedPage == null)
             throw new WebApplicationException("Ressource not found", Response.Status.NOT_FOUND);
