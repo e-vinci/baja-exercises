@@ -22,7 +22,7 @@ public class PageDataService {
     public List<Page> getAll(User authenticatedUser) {
         var pages = jsonDB.parse(COLLECTION_NAME);
         return pages.stream().filter(item -> item.getPublicationStatus().contentEquals("published")
-                || (item.getAuthor().equals(authenticatedUser))).toList();
+                || item.getAuthorId() == authenticatedUser.getId()).toList();
 
     }
 
@@ -37,7 +37,7 @@ public class PageDataService {
         var pages = jsonDB.parse(COLLECTION_NAME);
         return pages.stream().filter(item -> (item.getId() == id)
                         && (item.getPublicationStatus().contentEquals("published")
-                        || item.getAuthor().equals(authenticatedUser)))
+                        || item.getAuthorId() == authenticatedUser.getId()))
                 .findAny().orElse(null);
     }
 
@@ -48,7 +48,7 @@ public class PageDataService {
         page.setTitle(StringEscapeUtils.escapeHtml4(page.getTitle()));
         page.setUri(StringEscapeUtils.escapeHtml4(page.getUri()));
         page.setContent(StringEscapeUtils.escapeHtml4(page.getContent()));
-        page.setAuthor(authenticatedUser);
+        page.setAuthorId(authenticatedUser.getId());
         pages.add(page);
 
         jsonDB.serialize(pages, COLLECTION_NAME);
@@ -66,10 +66,10 @@ public class PageDataService {
     public Page deleteOne(int id, User authenticatedUser) {
         Page pageToDelete = getOne(id, authenticatedUser);
         var pages = jsonDB.parse(COLLECTION_NAME);
-        if(pageToDelete ==null)
+        if (pageToDelete == null)
             return null;
-        if(!pageToDelete.getAuthor().equals(authenticatedUser))
-           throw new IllegalStateException("Forbidden");
+        if (pageToDelete.getAuthorId() != authenticatedUser.getId())
+            throw new IllegalStateException("Forbidden");
         pages.remove(pageToDelete);
         jsonDB.serialize(pages, COLLECTION_NAME);
         return pageToDelete;
@@ -79,9 +79,9 @@ public class PageDataService {
         Page pageToUpdate = getOne(id, authenticatedUser);
         var pages = jsonDB.parse(COLLECTION_NAME);
 
-        if(pageToUpdate ==null)
+        if (pageToUpdate == null)
             return null;
-        if(!pageToUpdate.getAuthor().equals(authenticatedUser))
+        if (pageToUpdate.getAuthorId() !=authenticatedUser.getId())
             throw new IllegalStateException("Forbidden");
 
         pageToUpdate.setId(id);
@@ -94,8 +94,8 @@ public class PageDataService {
             pageToUpdate.setUri(StringEscapeUtils.escapeHtml4(page.getUri()));
         if (page.getContent() != null)
             pageToUpdate.setContent(StringEscapeUtils.escapeHtml4(page.getContent()));
-        if (page.getAuthor() != null)
-            pageToUpdate.setAuthor(page.getAuthor());
+        if (page.getAuthorId() != 0)
+            pageToUpdate.setAuthorId(page.getAuthorId());
         if (page.getPublicationStatus() != null)
             pageToUpdate.setPublicationStatus(page.getPublicationStatus());
         pages.remove(page); // thanks to equals(), pages is found via its id

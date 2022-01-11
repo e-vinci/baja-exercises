@@ -9,7 +9,7 @@ public class Page {
     private String content;
     private final static String[] POSSIBLE_PUBLICATION_STATUSES = {"hidden", "published"};
     private String publicationStatus;
-    private User author;
+    private int authorId;
 
     public int getId() {
         return id;
@@ -52,12 +52,12 @@ public class Page {
                 .orElse(null);
     }
 
-    public User getAuthor() {
-        return author;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Page {
     @Override
     public String toString() {
         return "Page [id=" + id + ", title=" + title + ", uri=" + uri + ", content=" + content + ", publicationStatus="
-                + publicationStatus + ", author=" + author + "]";
+                + publicationStatus + ", authorId=" + authorId + "]";
     }
 
 
