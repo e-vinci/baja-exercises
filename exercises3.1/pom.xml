@@ -90,7 +90,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>be.be.vinci.be.vinci.be.vinci.api.be.vinci.main.Main</mainClass>
+                    <mainClass>be.be.vinci.be.vinci.be.vinci.api.be.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>

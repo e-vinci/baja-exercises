@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>be.vinci</groupId>
-    <artifactId>exercises2.1</artifactId>
+    <artifactId>exercises3.2</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>headless-cms</name>
+    <name>exercises3.2</name>
 
     <dependencyManagement>
         <dependencies>
@@ -90,7 +90,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>be.be.vinci.be.vinci.be.vinci.api.be.Main</mainClass>
+                    <mainClass>be.be.vinci.be.vinci.be.vinci.api.be.be.vinci.main.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
