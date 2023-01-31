@@ -20,8 +20,7 @@ import java.io.IOException;
 
 
 /**
- * @author e-Baron
- * This filter allows anonymous requests
+ * @author e-Baron This filter allows anonymous requests
  */
 
 @Singleton
@@ -29,31 +28,34 @@ import java.io.IOException;
 @AnonymousOrAuthorize
 public class AnonymousOrAuthorizationRequestFilter implements ContainerRequestFilter {
 
-    private final Algorithm jwtAlgorithm = Algorithm.HMAC256(Config.getProperty("JWTSecret"));
-    private final JWTVerifier jwtVerifier = JWT.require(this.jwtAlgorithm).withIssuer("auth0").build();
-    @Inject
-    private UserDataService myUserDataService ;
+  private final Algorithm jwtAlgorithm = Algorithm.HMAC256(Config.getProperty("JWTSecret"));
+  private final JWTVerifier jwtVerifier = JWT.require(this.jwtAlgorithm).withIssuer("auth0")
+      .build();
+  @Inject
+  private UserDataService myUserDataService;
 
-    @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException {
-        String token = requestContext.getHeaderString("Authorization");
-        if (token == null) // anonymous request
-            return;
+  @Override
+  public void filter(ContainerRequestContext requestContext) throws IOException {
+    String token = requestContext.getHeaderString("Authorization");
+      if (token == null) // anonymous request
+      {
+          return;
+      }
 
-        DecodedJWT decodedToken = null;
-        try {
-            decodedToken = this.jwtVerifier.verify(token);
-        } catch (Exception e) {
-            throw new WebApplicationException("Malformed token : " + e.getMessage(), Status.UNAUTHORIZED);
-        }
-        User authenticatedUser = myUserDataService.getOne(decodedToken.getClaim("user").asInt());
-        if (authenticatedUser == null) {
-            throw new WebApplicationException("You are forbidden to access this resource", Status.FORBIDDEN);
-        }
-
-        requestContext.setProperty("user",
-                myUserDataService.getOne(decodedToken.getClaim("user").asInt()));
-
+    DecodedJWT decodedToken = null;
+    try {
+      decodedToken = this.jwtVerifier.verify(token);
+    } catch (Exception e) {
+      throw new WebApplicationException("Malformed token : " + e.getMessage(), Status.UNAUTHORIZED);
     }
+    User authenticatedUser = myUserDataService.getOne(decodedToken.getClaim("user").asInt());
+    if (authenticatedUser == null) {
+      throw new WebApplicationException("You are forbidden to access this resource",
+          Status.FORBIDDEN);
+    }
+
+    requestContext.setProperty("user", authenticatedUser);
+
+  }
 
 }

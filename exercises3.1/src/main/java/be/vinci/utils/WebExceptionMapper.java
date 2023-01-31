@@ -7,23 +7,24 @@ import jakarta.ws.rs.ext.Provider;
 
 @Provider
 public class WebExceptionMapper implements ExceptionMapper<Throwable> {
-    @Override
-    public Response toResponse(Throwable exception) {
-        exception.printStackTrace();
-        if (exception instanceof WebApplicationException) {
-            return  Response.status( ((WebApplicationException) exception).getResponse().getStatus())
-                    .entity(exception.getMessage())
-                    .build();
-        }
-        if(exception instanceof IllegalStateException
-                && exception.getMessage().equals("Forbidden")){
-            return  Response.status( Response.Status.FORBIDDEN)
-                    .entity("You are not the author")
-                    .build();
-        }
 
-        return  Response.status( Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(exception.getMessage())
-                .build();
+  @Override
+  public Response toResponse(Throwable exception) {
+    exception.printStackTrace();
+    if (exception instanceof WebApplicationException) {
+      return Response.status(((WebApplicationException) exception).getResponse().getStatus())
+          .entity(exception.getMessage())
+          .build();
     }
+    if (exception instanceof IllegalStateException
+        && exception.getMessage().equals("Forbidden")) {
+      return Response.status(Response.Status.FORBIDDEN)
+          .entity("You are not the author")
+          .build();
+    }
+
+    return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+        .entity(exception.getMessage())
+        .build();
+  }
 }

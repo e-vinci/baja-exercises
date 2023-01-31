@@ -31,8 +31,7 @@ public class Main {
         // in vinci.be package
         final ResourceConfig rc = new ResourceConfig().packages("be.vinci.api")
                 .register(WebExceptionMapper.class)
-                .register(ApplicationBinder.class)
-                .register(JacksonFeature.class);
+                .register(ApplicationBinder.class);
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
