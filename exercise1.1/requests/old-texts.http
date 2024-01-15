@@ -1,7 +1,6 @@
-@baseUrl = http://localhost:8080/texts
-
 ### View all texts : GET texts
 GET {{baseUrl}}
+
 
 ### Add a text : POST texts
 POST {{baseUrl}}

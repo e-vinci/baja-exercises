@@ -1,4 +1,4 @@
-package be.vinci.pae.api;
+package be.vinci;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,7 +56,7 @@ public class TextResource {
     var texts = Json.parse();
     Text textFound = texts.stream().filter(text -> text.getId() == id).findAny().orElse(null);
     if (textFound == null) {
-      throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+      throw new WebApplicationException(Response.status(Status.NOT_FOUND)
           .entity("Ressource not found").type("text/plain").build());
     }
     return textFound;
@@ -80,7 +80,7 @@ public class TextResource {
     var texts = Json.parse();
     Text textFound = texts.stream().filter(t -> t.getId() == id).findAny().orElse(null);
     if (textFound == null) {
-      throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+      throw new WebApplicationException(Response.status(Status.NOT_FOUND)
           .entity("Ressource not found").type("text/plain").build());
     }
 
@@ -108,7 +108,7 @@ public class TextResource {
     var texts = Json.parse();
     Text textFound = texts.stream().filter(t -> t.getId() == id).findAny().orElse(null);
     if (textFound == null) {
-      throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+      throw new WebApplicationException(Response.status(Status.NOT_FOUND)
           .entity("Ressource not found").type("text/plain").build());
     }
 
