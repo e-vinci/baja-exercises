@@ -1,0 +1,1 @@
+{"users":[{"id":1,"login":"james","password":"$2a$10$go1PAkVoaIYuDgmZxde3AeIt9dPLugW3yzWwA/m4afWKZYwd42POi"}],"pages":[{"id":1,"title":"Page 01","uri":"/home","content":"&lt;h1&gt;Home Page&lt;h1&gt;&lt;p&gt;Hi!&lt;/p&gt;","publicationStatus":"hidden","authorId":1}]}
